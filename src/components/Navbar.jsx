@@ -1,5 +1,8 @@
+'use client';
+
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { ShoppingBag, Search, Menu, X, Sun, Moon, Monitor, Zap, Home, Heart, ShoppingCart, Grid } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useTheme } from '../context/ThemeContext';
@@ -9,15 +12,17 @@ import './Navbar.css';
 const Navbar = () => {
     const { setIsCartOpen, getCartCount } = useCart();
     const { themeMode, setTheme } = useTheme();
-    const location = useLocation();
+    const pathname = usePathname();
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isThemeMenuOpen, setIsThemeMenuOpen] = useState(false);
     const [isSearchOpen, setIsSearchOpen] = useState(false);
     const themeMenuRef = useRef(null);
+    const [mounted, setMounted] = useState(false);
     const cartCount = getCartCount();
 
     useEffect(() => {
+        setMounted(true);
         const handleScroll = () => {
             setIsScrolled(window.scrollY > 20);
         };
@@ -37,9 +42,9 @@ const Navbar = () => {
 
     useEffect(() => {
         setIsMobileMenuOpen(false);
-    }, [location]);
+    }, [pathname]);
 
-    const isActive = (path) => location.pathname === path;
+    const isActive = (path) => pathname === path;
 
     return (
         <>
@@ -53,13 +58,13 @@ const Navbar = () => {
                         {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
                     </button>
 
-                    <Link to="/" className="logo">KIMI</Link>
+                    <Link href="/" className="logo">KIMI</Link>
 
                     <nav className="nav-links desktop-nav">
-                        <Link to="/shop" className={`nav-link ${isActive('/shop') ? 'active' : ''}`}>Shop</Link>
-                        <Link to="/collections" className={`nav-link ${isActive('/collections') ? 'active' : ''}`}>Collections</Link>
-                        <Link to="/about" className={`nav-link ${isActive('/about') ? 'active' : ''}`}>About</Link>
-                        <Link to="/contact" className={`nav-link ${isActive('/contact') ? 'active' : ''}`}>Contact</Link>
+                        <Link href="/shop" className={`nav-link ${isActive('/shop') ? 'active' : ''}`}>Shop</Link>
+                        <Link href="/collections" className={`nav-link ${isActive('/collections') ? 'active' : ''}`}>Collections</Link>
+                        <Link href="/about" className={`nav-link ${isActive('/about') ? 'active' : ''}`}>About</Link>
+                        <Link href="/contact" className={`nav-link ${isActive('/contact') ? 'active' : ''}`}>Contact</Link>
                     </nav>
 
                     <div className="nav-actions">
@@ -69,10 +74,16 @@ const Navbar = () => {
                                 onClick={() => setIsThemeMenuOpen(!isThemeMenuOpen)}
                                 aria-label="Change theme"
                             >
-                                {themeMode === 'light' && <Sun size={20} />}
-                                {themeMode === 'dark' && <Moon size={20} />}
-                                {themeMode === 'neon-navy' && <Zap size={20} />}
-                                {themeMode === 'system' && <Monitor size={20} />}
+                                {mounted ? (
+                                    <>
+                                        {themeMode === 'light' && <Sun size={20} />}
+                                        {themeMode === 'dark' && <Moon size={20} />}
+                                        {themeMode === 'neon-navy' && <Zap size={20} />}
+                                        {themeMode === 'system' && <Monitor size={20} />}
+                                    </>
+                                ) : (
+                                    <div style={{ width: 20, height: 20 }} /> // Placeholder to prevent layout shift
+                                )}
                             </button>
                             {isThemeMenuOpen && (
                                 <div className="theme-menu">
@@ -113,28 +124,28 @@ const Navbar = () => {
 
                 <div className={`sidebar-menu ${isMobileMenuOpen ? 'active' : ''}`}>
                     <nav className="sidebar-nav">
-                        <Link to="/" className={isActive('/') ? 'active' : ''}>
+                        <Link href="/" className={isActive('/') ? 'active' : ''}>
                             <Home size={20} /> Home
                         </Link>
-                        <Link to="/shop" className={isActive('/shop') ? 'active' : ''}>
+                        <Link href="/shop" className={isActive('/shop') ? 'active' : ''}>
                             <ShoppingCart size={20} /> Shop
                         </Link>
-                        <Link to="/collections" className={isActive('/collections') ? 'active' : ''}>
+                        <Link href="/collections" className={isActive('/collections') ? 'active' : ''}>
                             <Grid size={20} /> Collections
                         </Link>
-                        <Link to="/about" className={isActive('/about') ? 'active' : ''}>
+                        <Link href="/about" className={isActive('/about') ? 'active' : ''}>
                             <Heart size={20} /> About
                         </Link>
-                        <Link to="/contact" className={isActive('/contact') ? 'active' : ''}>
+                        <Link href="/contact" className={isActive('/contact') ? 'active' : ''}>
                             <Search size={20} /> Contact
                         </Link>
                         <div className="sidebar-divider"></div>
-                        <Link to="/faq">FAQ</Link>
-                        <Link to="/shipping">Shipping</Link>
-                        <Link to="/returns">Returns</Link>
-                        <Link to="/size-guide">Size Guide</Link>
-                        <Link to="/terms">Terms</Link>
-                        <Link to="/privacy">Privacy</Link>
+                        <Link href="/faq">FAQ</Link>
+                        <Link href="/shipping">Shipping</Link>
+                        <Link href="/returns">Returns</Link>
+                        <Link href="/size-guide">Size Guide</Link>
+                        <Link href="/terms">Terms</Link>
+                        <Link href="/privacy">Privacy</Link>
                     </nav>
                 </div>
 
@@ -147,15 +158,15 @@ const Navbar = () => {
             </header>
 
             <nav className="bottom-nav">
-                <Link to="/" className={`bottom-nav-item ${isActive('/') ? 'active' : ''}`}>
+                <Link href="/" className={`bottom-nav-item ${isActive('/') ? 'active' : ''}`}>
                     <Home size={24} />
                     <span>Home</span>
                 </Link>
-                <Link to="/shop" className={`bottom-nav-item ${isActive('/shop') ? 'active' : ''}`}>
+                <Link href="/shop" className={`bottom-nav-item ${isActive('/shop') ? 'active' : ''}`}>
                     <ShoppingCart size={24} />
                     <span>Shop</span>
                 </Link>
-                <Link to="/collections" className={`bottom-nav-item ${isActive('/collections') ? 'active' : ''}`}>
+                <Link href="/collections" className={`bottom-nav-item ${isActive('/collections') ? 'active' : ''}`}>
                     <Heart size={24} />
                     <span>Featured</span>
                 </Link>

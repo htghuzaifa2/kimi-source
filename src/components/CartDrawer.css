@@ -46,6 +46,24 @@
     align-items: center;
 }
 
+.close-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text);
+    padding: 8px;
+    border-radius: 50%;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    background: transparent;
+}
+
+.close-btn:hover {
+    background-color: var(--color-bg-secondary);
+    transform: rotate(90deg);
+    color: var(--color-danger);
+    /* Use danger color on hover for visual feedback */
+}
+
 .cart-items {
     flex: 1;
     overflow-y: auto;

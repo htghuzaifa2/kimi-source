@@ -1,0 +1,20 @@
+{
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/about/page": "/about",
+  "/checkout/page": "/checkout",
+  "/cod/page": "/cod",
+  "/collections/page": "/collections",
+  "/compare/page": "/compare",
+  "/contact/page": "/contact",
+  "/faq/page": "/faq",
+  "/page": "/",
+  "/privacy/page": "/privacy",
+  "/product/[slug]/page": "/product/[slug]",
+  "/returns/page": "/returns",
+  "/search/page": "/search",
+  "/shipping/page": "/shipping",
+  "/shop/[[...slug]]/page": "/shop/[[...slug]]",
+  "/size-guide/page": "/size-guide",
+  "/terms/page": "/terms"
+}

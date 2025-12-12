@@ -1,5 +1,8 @@
+'use client';
+
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { X, Search as SearchIcon } from 'lucide-react';
 import { products } from '../data/products';
 import './Search.css';
@@ -8,10 +11,12 @@ const Search = ({ isOpen, onClose }) => {
     const [query, setQuery] = useState('');
     const [results, setResults] = useState([]);
     const inputRef = useRef(null);
-    const navigate = useNavigate();
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+    const router = useRouter(); // Changed from navigate
+    const [isMobile, setIsMobile] = useState(false); // Changed to false initially to avoid hydration error
 
     useEffect(() => {
+        // Run on client only
+        setIsMobile(window.innerWidth < 768);
         const handleResize = () => {
             setIsMobile(window.innerWidth < 768);
         };
@@ -108,7 +113,7 @@ const Search = ({ isOpen, onClose }) => {
 
     const handleSearchSubmit = () => {
         if (query.trim()) {
-            navigate(`/search?q=${encodeURIComponent(query.trim())}`);
+            router.push(`/search?q=${encodeURIComponent(query.trim())}`); // Changed from navigate
             handleClose();
         }
     };
@@ -161,7 +166,7 @@ const Search = ({ isOpen, onClose }) => {
                             <div className="search-results-grid">
                                 {results.map(product => (
                                     <Link
-                                        to={`/product/${product.slug}`}
+                                        href={`/product/${product.slug}`}
                                         key={product.id}
                                         className="search-result-item"
                                         onClick={handleClose}
@@ -206,6 +211,5 @@ const Search = ({ isOpen, onClose }) => {
         </div>
     );
 };
-
 
 export default Search;

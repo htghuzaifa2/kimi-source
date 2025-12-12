@@ -1,16 +1,18 @@
+'use client';
+
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import { X, Minus, Plus, Trash2 } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import './CartDrawer.css';
 
 const CartDrawer = ({ isOpen, onClose }) => {
     const { cart, removeFromCart, updateQuantity, getCartTotal } = useCart();
-    const navigate = useNavigate();
+    const router = useRouter();
 
     const handleCheckout = () => {
         onClose();
-        navigate('/checkout');
+        router.push('/checkout');
     };
 
     return (
@@ -19,7 +21,7 @@ const CartDrawer = ({ isOpen, onClose }) => {
             <div className={`cart-drawer ${isOpen ? 'open' : ''}`}>
                 <div className="cart-header">
                     <h2 className="h3">Shopping Cart</h2>
-                    <button onClick={onClose}><X size={24} /></button>
+                    <button onClick={onClose} className="close-btn" aria-label="Close cart"><X size={24} /></button>
                 </div>
 
                 <div className="cart-items">

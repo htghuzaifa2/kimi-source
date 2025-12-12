@@ -1,49 +1,48 @@
+'use client';
+
 import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate, useLocation, Link } from 'react-router-dom';
-import { X, Circle } from 'lucide-react';
+import { useRouter, usePathname } from 'next/navigation';
+import Link from 'next/link';
+import { X, Circle, ShoppingBag, Package, Sparkles, Gem, HelpCircle, Truck, RefreshCw, Banknote, Mail, Info, FileText, ShieldCheck, Scale } from 'lucide-react';
 import './AssistiveTouch.css';
 
 const AssistiveTouch = () => {
-    const navigate = useNavigate();
-    const location = useLocation();
+    const router = useRouter();
+    const pathname = usePathname();
 
     // State
     const [isOpen, setIsOpen] = useState(false);
-    const [position, setPosition] = useState({ x: window.innerWidth - 70, y: window.innerHeight - 140 });
+    const [position, setPosition] = useState({ x: 0, y: 0 }); // Initial state 0 to prevent hydration mismatch, update in useEffect
     const [isDragging, setIsDragging] = useState(false);
     const [isIdle, setIsIdle] = useState(false);
-    const [rotation, setRotation] = useState(0);
-    const [radius, setRadius] = useState(window.innerWidth < 768 ? 110 : 140); // Responsive radius
+    const [radius, setRadius] = useState(140);
 
     // Refs
     const dragStartPos = useRef({ x: 0, y: 0 });
     const dragStartTime = useRef(0);
     const idleTimer = useRef(null);
-    const lastRotationPos = useRef(null);
-    const velocity = useRef(0);
-    const animationFrame = useRef(null);
-    const isInteractingWithMenu = useRef(false);
 
     // Constants
     const DRAG_THRESHOLD = 5;
     const CLICK_TIMEOUT = 200;
-    const FRICTION = 0.95;
-    const ANGLE_STEP = 30;
+    const ANGLE_STEP = 360 / 14; // Fixed angle for 14 items
 
     // Menu Items (Text Only)
     const menuItems = [
+        { label: 'Home', path: '/' },
         { label: 'Shop', path: '/shop' },
         { label: 'All Products', path: '/shop' },
         { label: 'New Arrivals', path: '/shop' },
-        { label: 'Accessories', path: '/collections/accessories' },
+        { label: 'Accessories', path: '/collections' },
         { label: 'FAQ', path: '/faq' },
-        { label: 'Shipping Policy', path: '/shipping' },
-        { label: 'Returns & Refunds', path: '/returns' },
-        { label: 'Cash on Delivery', path: '/cod' },
-        { label: 'Contact Us', path: '/contact' },
-        { label: 'About Us', path: '/about' },
-        { label: 'Terms of Service', path: '/terms' },
-        { label: 'Privacy Policy', path: '/privacy' },
+        { label: 'Shipping', path: '/shipping' },
+        { label: 'Returns', path: '/returns' },
+        { label: 'COD', path: '/cod' },
+        { label: 'Contact', path: '/contact' },
+        { label: 'About', path: '/about' },
+        { label: 'Compare', path: '/compare' },
+        { label: 'Terms', path: '/terms' },
+        { label: 'Privacy', path: '/privacy' },
     ];
 
     // --- Idle Timer ---
@@ -52,8 +51,14 @@ const AssistiveTouch = () => {
         if (idleTimer.current) clearTimeout(idleTimer.current);
         idleTimer.current = setTimeout(() => {
             if (!isOpen && !isDragging && !isInteractingWithMenu.current) setIsIdle(true);
-        }, 2500);
+        }, 2000); // 2 seconds as requested
     };
+
+    useEffect(() => {
+        // Set initial position on client only
+        setPosition({ x: window.innerWidth - 70, y: window.innerHeight - 140 });
+        setRadius(window.innerWidth < 768 ? 110 : 140);
+    }, []);
 
     useEffect(() => {
         resetIdleTimer();
@@ -84,7 +89,7 @@ const AssistiveTouch = () => {
 
     useEffect(() => {
         setIsOpen(false);
-    }, [location]);
+    }, [pathname]);
 
     // --- Ball Drag Logic (PointerEvents) ---
     const handlePointerDown = (e) => {
@@ -141,61 +146,24 @@ const AssistiveTouch = () => {
         resetIdleTimer();
     };
 
-    // --- Menu Rotation Logic (Inertia) ---
-    const startRotation = (e) => {
-        if (animationFrame.current) cancelAnimationFrame(animationFrame.current);
-        isInteractingWithMenu.current = true;
-        lastRotationPos.current = { x: e.clientX, y: e.clientY };
-        velocity.current = 0;
-        e.target.setPointerCapture(e.pointerId);
-    };
-
-    const moveRotation = (e) => {
-        if (!lastRotationPos.current) return;
-
-        const deltaX = e.clientX - lastRotationPos.current.x;
-        const deltaY = e.clientY - lastRotationPos.current.y;
-
-        const delta = Math.abs(deltaX) > Math.abs(deltaY) ? deltaX : deltaY;
-
-        setRotation(prev => prev + delta * 0.5);
-        velocity.current = delta * 0.5;
-
-        lastRotationPos.current = { x: e.clientX, y: e.clientY };
-        resetIdleTimer();
-    };
-
-    const endRotation = (e) => {
-        isInteractingWithMenu.current = false;
-        lastRotationPos.current = null;
-        e.target.releasePointerCapture(e.pointerId);
-
-        const runInertia = () => {
-            if (Math.abs(velocity.current) < 0.05) return;
-
-            velocity.current *= FRICTION;
-            setRotation(prev => prev + velocity.current);
-            animationFrame.current = requestAnimationFrame(runInertia);
-        };
-        runInertia();
-    };
-
-    // Wheel Handler
-    const handleMenuWheel = (e) => {
-        e.stopPropagation();
-        setRotation(prev => prev + (e.deltaY * -0.2));
-        resetIdleTimer();
-    };
-
-    // Helper for circular positioning
+    // Helper for static circular positioning
     const getItemStyle = (index) => {
-        const currentAngle = (index * ANGLE_STEP) + rotation;
+        const currentAngle = index * ANGLE_STEP; // Static angle, no rotation
         const radian = currentAngle * (Math.PI / 180);
+
+        // Staggered delay for "Pop out" effect
+        const delay = isOpen ? `${index * 0.03}s` : '0s';
 
         return {
             transform: `translate(${Math.cos(radian) * radius}px, ${Math.sin(radian) * radius}px)`,
+            transitionProperty: 'transform, opacity',
+            transitionDuration: '0.2s',
+            transitionTimingFunction: 'ease-out',
+            transitionDelay: delay
         };
     };
+
+    if (position.x === 0 && position.y === 0) return null; // Prevent hydration mismatch flash
 
     return (
         <>
@@ -216,35 +184,19 @@ const AssistiveTouch = () => {
                     {isOpen ? <X size={24} color="white" /> : <Circle size={16} fill="white" color="white" />}
                 </div>
 
-                {/* The Menu Ring */}
-                <div
-                    className={`assistive-ring ${isOpen ? 'visible' : ''}`}
-                    onWheel={handleMenuWheel}
-                    onPointerDown={startRotation}
-                    onPointerMove={moveRotation}
-                    onPointerUp={endRotation}
-                    onPointerCancel={endRotation}
-                >
+                {/* The Menu Ring - Static (no rotation) */}
+                <div className={`assistive-ring ${isOpen ? 'visible' : ''}`}>
                     {menuItems.map((item, index) => (
                         <Link
                             key={index}
-                            to={item.path}
+                            href={item.path}
                             className="assistive-item"
                             style={getItemStyle(index)}
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                setIsOpen(false);
-                            }}
-                            onPointerDown={(e) => e.stopPropagation()}
+                            onClick={() => setIsOpen(false)}
                         >
                             <span className="assistive-item-label">{item.label}</span>
                         </Link>
                     ))}
-
-                    {/* Center Hint */}
-                    <div className="assistive-hint">
-                        <span>Drag Ring<br />to Spin</span>
-                    </div>
                 </div>
             </div>
         </>

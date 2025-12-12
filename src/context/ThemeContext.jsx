@@ -12,11 +12,12 @@ export const useTheme = () => {
 
 export const ThemeProvider = ({ children }) => {
     const getInitialTheme = () => {
+        if (typeof window === 'undefined') return 'light';
+
         // Check if user has a saved preference
         const savedTheme = localStorage.getItem('kimi-theme');
 
         if (savedTheme) {
-            // Return user's saved preference (subsequent visits)
             return savedTheme;
         }
 
@@ -27,7 +28,6 @@ export const ThemeProvider = ({ children }) => {
             return 'light';
         }
 
-        // Fallback to light if system theme can't be detected
         return 'light';
     };
 

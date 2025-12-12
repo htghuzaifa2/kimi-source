@@ -2,92 +2,99 @@
 export const seoConfig = {
     home: {
         title: "Kimi — Wear Without Fear",
-        description: "Discover Kimi - Pakistan's premium clothing brand offering fearless fashion for those who dare to stand out. Shop authentic, stylish apparel with worldwide shipping.",
-        keywords: "Kimi, Pakistani clothing brand, Pakistan fashion, clothing online Pakistan, wear without fear, trendy clothes, premium clothing Pakistan, worldwide shipping, international fashion, fearless fashion, streetwear",
+        description: "Kimi – Pakistan’s premier clothing brand. Shop the latest collections of authentic ethnic wear, designer apparel, and luxury prêt. Discover stylish, fearless fashion with high-quality fabrics and designs. Worldwide shipping available",
+        keywords: "Kimi, custom sizing Pakistan, premium clothing brand, fearless fashion, streetwear Pakistan, gaming outfits, tailored fits, online shopping Pakistan",
         canonicalUrl: "/",
         ogImage: "/favicon.ico"
     },
     contact: {
-        title: "Contact Us | Kimi",
-        description: "Get in touch with Kimi. Our team is here to help with your orders, questions, and fashion inquiries. WhatsApp, email, or visit our contact page.",
-        keywords: "contact Kimi, customer support, Kimi Pakistan contact, clothing brand support",
+        title: "Contact Us",
+        description: "Need help with custom sizing? Contact Kimi's support team in Pakistan for orders, fits, and inquiries. WhatsApp or email us today.",
+        keywords: "contact Kimi, custom sizing help, customer support Pakistan, clothing inquiries",
         canonicalUrl: "/contact",
         ogImage: "/og-contact.jpg"
     },
     about: {
-        title: "About Us | Kimi",
-        description: "Learn about Kimi's journey to becoming Pakistan's premium clothing brand. We're redefining fashion with fearless designs for bold individuals.",
-        keywords: "about Kimi, Pakistani clothing brand story, fearless fashion, wear without fear, clothing brand Pakistan",
+        title: "About Us",
+        description: "Kimi is Pakistan's fearless fashion house. We believe in the perfect fit, offering custom sizing and premium quality for those who dare to stand out.",
+        keywords: "about Kimi, fashion brand story, custom sizing brand, fearless fashion Pakistan",
         canonicalUrl: "/about",
         ogImage: "/og-about.jpg"
     },
     faq: {
-        title: "FAQ | Kimi",
-        description: "Find answers to frequently asked questions about ordering, shipping, returns, sizing, and more. Everything you need to know about shopping with Kimi.",
-        keywords: "Kimi FAQ, clothing size guide, shipping Pakistan, returns policy, how to order",
+        title: "FAQ",
+        description: "Find answers about Kimi's custom sizing, shipping across Pakistan, and return policies. Everything needed for a seamless shopping experience.",
+        keywords: "Kimi FAQ, custom size guide, shipping Pakistan, returns policy",
         canonicalUrl: "/faq",
         ogImage: "/og-faq.jpg"
     },
     shipping: {
-        title: "Shipping Policy | Kimi",
-        description: "Learn about Kimi's shipping policy. Free delivery on orders above PKR 2,500 across Pakistan. Fast and reliable shipping to all major cities.",
-        keywords: "shipping Pakistan, free delivery, Kimi shipping policy, delivery time Pakistan",
+        title: "Shipping Policy",
+        description: "Fast, reliable shipping across Pakistan with Kimi. Free delivery on qualifying orders. Tracking available for all custom and standard shipments.",
+        keywords: "shipping Pakistan, fast delivery, Kimi shipping, free delivery Lahore Karachi Islamabad",
         canonicalUrl: "/shipping",
         ogImage: "/og-shipping.jpg"
     },
     returns: {
-        title: "Returns & Refunds | Kimi",
-        description: "Kimi offers hassle-free returns within 3 days of delivery. Exchange sizes, colors, or return damaged items easily. Read our full returns policy.",
-        keywords: "returns policy, refunds, exchange clothes, Kimi returns, clothing exchange Pakistan",
+        title: "Returns & Refunds",
+        description: "Hassle-free returns and exchanges. If the fit isn't perfect, we'll make it right. Read Kimi's customer-first return policy.",
+        keywords: "returns policy, exchange Pakistan, custom size adjustment, Kimi refunds",
         canonicalUrl: "/returns",
         ogImage: "/og-returns.jpg"
     },
     cod: {
-        title: "Cash on Delivery | Kimi",
-        description: "Shop with confidence using Cash on Delivery. Inspect your order before payment with COD service across Pakistan. PKR 50 service fee applies.",
-        keywords: "cash on delivery, COD Pakistan, pay at delivery, Kimi COD, safe shopping",
+        title: "Cash on Delivery",
+        description: "Shop premium fashion confidently. Kimi offers Cash on Delivery (COD) across Pakistan. Inspect your custom fits upon arrival.",
+        keywords: "cash on delivery Pakistan, COD shopping, secure payment, Kimi payments",
         canonicalUrl: "/cod",
         ogImage: "/og-cod.jpg"
     },
     checkout: {
-        title: "Checkout | Kimi",
-        description: "Complete your purchase securely. Choose from Cash on Delivery or Advance Payment options. Fast delivery across Pakistan.",
-        keywords: "checkout, buy clothes online, secure checkout Pakistan, payment options",
+        title: "Checkout",
+        description: "Complete your order for premium custom-fit clothing. Secure checkout with COD and online payment options. Fast dispatch to all cities.",
+        keywords: "checkout, buy clothes Pakistan, secure payment, custom sizing order",
         canonicalUrl: "/checkout",
         ogImage: "/og-checkout.jpg"
     },
     terms: {
-        title: "Terms of Service | Kimi",
-        description: "Read Kimi's terms of service. Understand our policies on orders, payments, shipping, and returns before making a purchase.",
-        keywords: "terms of service, Kimi terms, legal, policies",
+        title: "Terms of Service",
+        description: "Kimi's terms of service. Transparent policies for custom sizing orders, shipping, and usage. Protecting our valued Pakistani customers.",
+        keywords: "terms of service, legal, custom order terms, Kimi policies",
         canonicalUrl: "/terms",
         ogImage: "/og-terms.jpg"
     },
     privacy: {
-        title: "Privacy Policy | Kimi",
-        description: "Kimi respects your privacy. Learn how we collect, use, and protect your personal information when you shop with us.",
-        keywords: "privacy policy, data protection, secure shopping, Kimi privacy",
+        title: "Privacy Policy",
+        description: "Your privacy matters. Learn how Kimi protects your personal data while providing the best personalized shopping experience in Pakistan.",
+        keywords: "privacy policy, data protection Pakistan, secure shopping",
         canonicalUrl: "/privacy",
         ogImage: "/og-privacy.jpg"
     },
     categories: {
-        title: "Shop by Collection | Kimi",
-        description: "Browse Kimi's clothing collections. Find your style from our curated categories of premium, fearless fashion.",
-        keywords: "clothing collections, shop by category, fashion collections Pakistan, Kimi categories",
+        title: "Shop by Collection",
+        description: "Explore Kimi's exclusive collections. From gaming gear to streetwear, find your perfect style and fit with our custom sizing options.",
+        keywords: "fashion collections, custom fit clothing, shop by category, Kimi designs",
         canonicalUrl: "/collections",
         ogImage: "/og-collections.jpg"
     },
     sizeGuide: {
-        title: "Size Guide | Kimi",
-        description: "Find your perfect fit with Kimi's detailed size guide. Measurements for all our clothing items to ensure you look and feel your best.",
-        keywords: "size guide, clothing measurements, size chart Pakistan, Kimi sizing, fit guide",
+        title: "Size Guide",
+        description: "Not sure about your size? Check our guide or choose Custom Sizing for a tailored fit. The best fit in Pakistan, guaranteed.",
+        keywords: "size guide, custom sizing Pakistan, how to measure, tailored fit",
         canonicalUrl: "/size-guide",
         ogImage: "/og-size-guide.jpg"
     },
+    compare: {
+        title: "Compare Products",
+        description: "Compare your favorite Kimi products side-by-side. Analyze features, prices, and styles to make the perfect choice for your custom fit.",
+        keywords: "compare clothing, product comparison, Kimi feature compare, price check",
+        canonicalUrl: "/compare",
+        ogImage: "/favicon.ico"
+    },
     search: {
-        title: "Search Results | Kimi",
-        description: "Search results for Kimi clothing. Find the products you're looking for.",
-        keywords: "search, find clothes, Kimi search results",
+        title: "Search Results",
+        description: "Search for your favorite looks, custom sizing options, and premium outfits on Kimi.",
+        keywords: "search clothing, find fashion, Kimi search",
         canonicalUrl: "/search",
         ogImage: "/og-search.jpg"
     }
